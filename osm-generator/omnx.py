@@ -21,7 +21,6 @@ class OSMGenerator:
         
         bbox = (min_y, max_y, min_x, max_x)
         self.G = ox.graph_from_bbox(bbox=bbox, network_type='all')
-
         return 0
 
     def calculate_distance(self, point1, point2):
@@ -36,9 +35,8 @@ class OSMGenerator:
         fig.savefig(file_path, dpi=500)
         return 0
     
-    # TODO: dodanie atrybutów do krawędzi
-    def edge_add_atrr(self, edge, attr_name, attr_value):
-        self.G[edge[0]][edge[1]][attr_name] = attr_value
+    def edge_add_atrr(self, edge, attr_name, attr_value, key=0):
+        self.G.edges[edge[0], edge[1], key][attr_name] = attr_value
         return 0
 
 
@@ -61,5 +59,6 @@ if __name__ == "__main__":
         if i == 5:
             break
         print(edge)
+        OSMGenerator.edge_add_atrr(edge, 'test', 'test')
+        print(edge)
         i += 1
-        
