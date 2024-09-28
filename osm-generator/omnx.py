@@ -16,10 +16,11 @@ def get_OSM_data(start_loc_name, end_loc_name):
     
     bbox = (min_y, max_y, min_x, max_x)
     G = ox.graph_from_bbox(bbox=bbox, network_type='all')
+    ox.io.save_graph_xml(G, filepath="./osm-generator/maps/osm-data.osm")
 
     # Saving the graph to a .png file
     # fig, ax = ox.plot_graph(G, show=False, close=False)
-    # fig.savefig(f"./osm-generator/maps/shortest_path.png", dpi=500)
+    # fig.savefig(f"./osm-generator/maps/osm-data.png", dpi=500)
 
     return 0
 
