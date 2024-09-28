@@ -15,10 +15,11 @@ def get_OSM_data(start_loc_name, end_loc_name):
     max_y = max(gdf1.geometry.total_bounds[3], gdf2.geometry.total_bounds[3])
     
     bbox = (min_y, max_y, min_x, max_x)
+    G = ox.graph_from_bbox(bbox=bbox, network_type='all')
 
-    G = ox.graph_from_bbox(north=max_y, south=min_y, east=max_x, west=min_x, network_type='all')
-    fig, ax = ox.plot_graph(G, show=False, close=False)
-    fig.savefig(f"./Python/maps/shortest_path.png", dpi=500)
+    # Saving the graph to a .png file
+    # fig, ax = ox.plot_graph(G, show=False, close=False)
+    # fig.savefig(f"./osm-generator/maps/shortest_path.png", dpi=500)
 
     return 0
 
@@ -26,7 +27,7 @@ def get_OSM_data(start_loc_name, end_loc_name):
 def calculate_distance(point1, point2):
     return geodesic(point1, point2).meters
 
-# Funkcja obliczajaca dlugosc dorgi w metrach
+# Funkcja obliczajaca dlugosc drogi w metrach
 def calculate_shortest_path_length(graph, route):
     route_length = 0
 
@@ -43,7 +44,7 @@ def calculate_shortest_path_length(graph, route):
 
 if __name__ == "__main__":
     print("Test")
-    # Zdefiniuj nazwy miejscowości
+
     place1 = 'Skała, Poland'
     place2 = 'Krzeszowice, Poland'
 
