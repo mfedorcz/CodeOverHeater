@@ -22,9 +22,6 @@ class OSMGenerator:
         bbox = (min_y, max_y, min_x, max_x)
         self.G = ox.graph_from_bbox(bbox=bbox, network_type='all')
         return 0
-
-    def calculate_distance(self, point1, point2):
-        return geodesic(point1, point2).meters
     
     def save_OSM_data(self, file_path):
         ox.io.save_graph_xml(self.G, filepath=file_path)
