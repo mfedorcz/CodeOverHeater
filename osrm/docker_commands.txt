@@ -1,8 +1,8 @@
-docker compose run osrm osrm-extract -p /opt/bicycle-custom.lua /data/map.osm
-docker compose run osrm osrm-contract /data/map.osrm
+docker compose run osrm osrm-extract -p /opt/bicycle-custom.lua /data/osm-data.osm
+docker compose run osrm osrm-contract /data/osm-data.osrm
 docker compose up
 
-curl "http://127.0.0.1:5000/route/v1/driving/19.851309,50.229771;19.639257,50.142277?overview=false&"
+curl "http://127.0.0.1:5000/route/v1/driving/19.851309,50.229771;19.639257,50.142277?overview=false&steps=true"
 
 50.22977129902179, 19.85130941153469
 

@@ -7,7 +7,8 @@ WORKDIR /data
 # Copy your local OSRM data into the container's /data directory
 # Assuming the .osrm files are stored in the 'osrm-data' directory
 # COPY ./osrm-data /data
-COPY ./osrm-data/bicycle-custom.lua /opt/
+COPY ./profiles/bicycle-custom.lua /opt/
+# COPY ./osm-files/osm-data.osm /data/
 # Expose the OSRM routing engine port (5000)
 EXPOSE 5000
 
