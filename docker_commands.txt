@@ -1,0 +1,5 @@
+docker compose run osrm osrm-extract -p /opt/bicycle-custom.lua /data/map.osm
+docker compose run osrm osrm-contract /data/berlin-latest.osrm
+docker compose up
+
+curl "http://127.0.0.1:5000/route/v1/driving/13.376863,52.516546;13.382077,52.513987?overview=false"

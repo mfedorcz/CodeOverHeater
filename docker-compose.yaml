@@ -1,0 +1,10 @@
+version: '3'
+services:
+  osrm:
+    build: .
+    # command: tail -f /dev/null  # Keeps the container running indefinitely
+    command: osrm-routed /data/map.osrm
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./osrm-data:/data
