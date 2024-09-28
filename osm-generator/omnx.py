@@ -28,20 +28,6 @@ def get_OSM_data(start_loc_name, end_loc_name):
 def calculate_distance(point1, point2):
     return geodesic(point1, point2).meters
 
-# Funkcja obliczajaca dlugosc drogi w metrach
-def calculate_shortest_path_length(graph, route):
-    route_length = 0
-
-    for i in range(len(route) - 1):
-        u = route[i]
-        v = route[i + 1]
-        key = 0
-        length = graph[u][v][key].get('length', 0)
-        # print(f"Krawedz {u} -> {v} ma dlugosc {length} m")
-        route_length += length
-
-    return route_length
-
 
 if __name__ == "__main__":
     print("Test")
