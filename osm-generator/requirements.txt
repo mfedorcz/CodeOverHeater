@@ -2,3 +2,4 @@ osmnx
 networkx
 geopy
 matplotlib
+requests
