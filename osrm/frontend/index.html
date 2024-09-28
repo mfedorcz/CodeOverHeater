@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OSRM API Route Fetch and Display</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/@mapbox/polyline"></script> <!-- Include the polyline library -->
+</head>
+<body>
+    <h1>OSRM API Route Fetch and Display</h1>
+    <div id="map" style="height: 500px;"></div>
+
+    <script>
+        // Initialize the Leaflet map
+        const map = L.map('map').setView([52.516546, 13.376863], 13); // Center the map on the first coordinate
+
+        // Add OpenStreetMap tile layer
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        const url = "http://127.0.0.1:5000/route/v1/driving/19.851309,50.229771;19.639257,50.142277?overview=false&steps=true";
+
+        fetch(url)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok: " + response.statusText);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log("OSRM API Response:", data);
+
+                // Extract and decode geometries
+                const geometries = data.routes[0].legs[0].steps.map(step => step.geometry);
+                const decodedGeometries = geometries.map(geometry => polyline.decode(geometry));
+
+                // Flatten the decoded geometries to a single array of LatLng pairs
+                const routeCoordinates = decodedGeometries.flat();
+
+                // Draw the polyline on the map
+                const routePolyline = L.polyline(routeCoordinates, { color: 'blue' }).addTo(map);
+
+                // Fit the map to the bounds of the route
+                map.fitBounds(routePolyline.getBounds());
+                console.log("Decoded Geometries:", decodedGeometries);
+            })
+            .catch(error => {
+                console.error("There was a problem with the fetch operation:", error);
+            });
+    </script>
+</body>
+</html>
