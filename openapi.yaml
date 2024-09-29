@@ -1,0 +1,176 @@
+openapi: 3.0.0
+info:
+  title: OSRM SafeRoute API
+  description: API to calculate safe bike routes using the OSRM engine.
+  version: 1.0.0
+paths:
+  /route:
+    get:
+      summary: Get route information
+      description: Calculate a route between two points using the OSRM engine.
+      parameters:
+        - name: start_latitude
+          in: query
+          required: true
+          description: Starting point latitude
+          schema:
+            type: number
+            format: float
+        - name: start_longitude
+          in: query
+          required: true
+          description: Starting point longitude
+          schema:
+            type: number
+            format: float
+        - name: end_latitude
+          in: query
+          required: true
+          description: Ending point latitude
+          schema:
+            type: number
+            format: float
+        - name: end_longitude
+          in: query
+          required: true
+          description: Ending point longitude
+          schema:
+            type: number
+            format: float
+        - name: profile
+          in: query
+          required: true
+          description: Profile to use (bike, safe-bike, strict-bike, bike50)
+          schema:
+            type: string
+            enum: [bike, safe-bike, strict-bike, bike50]
+      responses:
+        '200':
+          description: A successful response with route information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: string
+                    example: "Ok"
+                  routes:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        legs:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              steps:
+                                type: array
+                                items:
+                                  type: object
+                                  properties:
+                                    intersections:
+                                      type: array
+                                      items:
+                                        type: object
+                                        properties:
+                                          out:
+                                            type: integer
+                                          entry:
+                                            type: array
+                                            items:
+                                              type: boolean
+                                          bearings:
+                                            type: array
+                                            items:
+                                              type: integer
+                                          location:
+                                            type: array
+                                            items:
+                                              type: number
+                                            description: "Location (longitude, latitude)"
+                                          lanes:
+                                            type: array
+                                            items:
+                                              type: object
+                                              properties:
+                                                valid:
+                                                  type: boolean
+                                                indications:
+                                                  type: array
+                                                  items:
+                                                    type: string
+                                    driving_side:
+                                      type: string
+                                      example: "right"
+                                    geometry:
+                                      type: string
+                                    mode:
+                                      type: string
+                                      example: "driving"
+                                    duration:
+                                      type: number
+                                      description: "Duration in seconds"
+                                    maneuver:
+                                      type: object
+                                      properties:
+                                        bearing_after:
+                                          type: integer
+                                        location:
+                                          type: array
+                                          items:
+                                            type: number
+                                        bearing_before:
+                                          type: integer
+                                        type:
+                                          type: string
+                                        modifier:
+                                          type: string
+                                    weight:
+                                      type: number
+                                    distance:
+                                      type: number
+                                    name:
+                                      type: string
+                              distance:
+                                type: number
+                              duration:
+                                type: number
+                              summary:
+                                type: string
+                              weight:
+                                type: number
+                        distance:
+                          type: number
+                        duration:
+                          type: number
+                        weight_name:
+                          type: string
+                        weight:
+                          type: number
+                  waypoints:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        hint:
+                          type: string
+                        distance:
+                          type: number
+                        name:
+                          type: string
+                        location:
+                          type: array
+                          items:
+                            type: number
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: string
+                    example: "Invalid profile. Allowed profiles: bike, safe-bike, strict-bike, bike50"
