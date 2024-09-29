@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>OSRM Planer Trasy</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/@mapbox/polyline"></script> <!-- Biblioteka do dekodowania polilinii -->
+</head>
+<body>
+    <h1>OSRM Planer Trasy</h1>
+    <p>Kliknij na mapę, aby wybrać punkt początkowy i końcowy trasy.</p>
+    <label>Punkt początkowy: <input type="text" id="startPoint" readonly></label><br>
+    <label>Punkt docelowy: <input type="text" id="endPoint" readonly></label><br><br>
+
+    <!-- Zmienione nazwy opcji i mapowanie portów -->
+    <fieldset>
+        <legend>Wybierz poziom bezpieczeństwa trasy:</legend>
+        <label><input type="radio" name="securityLevel" value="5002" checked> Standardowy</label>
+        <label><input type="radio" name="securityLevel" value="5001"> Bezpieczny</label>
+        <label><input type="radio" name="securityLevel" value="5000"> Najbezpieczniejszy</label>
+    </fieldset>
+
+    <div id="map" style="height: 500px;"></div>
+
+    <script>
+        // Inicjalizacja mapy Leaflet
+        const map = L.map('map').setView([49.862, 19.355], 13); // Ustawienie widoku mapy
+
+        // Dodanie warstwy kafelkowej OpenStreetMap
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Tablica przechowująca punkty trasy (max 2 punkty)
+        let waypoints = [];
+
+        // Warstwa do przechowywania markerów
+        const markersLayer = L.layerGroup().addTo(map);
+
+        // Zmienna przechowująca polilinię trasy
+        let routePolyline = null;
+
+        // Ikony dla punktu startowego i końcowego
+        const startIcon = L.icon({
+            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
+            shadowUrl: 'https://unpkg.com/leaflet@1.9.3/dist/images/marker-shadow.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+        });
+
+        const endIcon = L.icon({
+            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
+            shadowUrl: 'https://unpkg.com/leaflet@1.9.3/dist/images/marker-shadow.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+        });
+
+        // Obsługa kliknięć na mapie
+        map.on('click', function(e) {
+            const coord = e.latlng;
+
+            // Jeśli mamy już 2 punkty, resetujemy markery i punkty trasy
+            if (waypoints.length >= 2) {
+                waypoints = [];
+                markersLayer.clearLayers();
+
+                // Usuwamy istniejącą polilinię trasy, jeśli jest
+                if (routePolyline) {
+                    map.removeLayer(routePolyline);
+                    routePolyline = null;
+                }
+
+                // Czyszczenie pól tekstowych
+                document.getElementById('startPoint').value = '';
+                document.getElementById('endPoint').value = '';
+            }
+
+            waypoints.push(coord);
+
+            let markerIcon;
+            let inputFieldId;
+
+            if (waypoints.length === 1) {
+                markerIcon = startIcon;
+                inputFieldId = 'startPoint';
+            } else if (waypoints.length === 2) {
+                markerIcon = endIcon;
+                inputFieldId = 'endPoint';
+            }
+
+            // Dodanie markera z odpowiednią ikoną
+            L.marker(coord, { icon: markerIcon }).addTo(markersLayer);
+
+            // Aktualizacja pola tekstowego z współrzędnymi
+            const inputField = document.getElementById(inputFieldId);
+            inputField.value = `${coord.lat.toFixed(6)}, ${coord.lng.toFixed(6)}`;
+
+            if (waypoints.length === 2) {
+                getRoute();
+            }
+        });
+
+        function getRoute() {
+            // Tworzenie ciągu współrzędnych do URL
+            const coordsString = waypoints.map(point => `${point.lng},${point.lat}`).join(';');
+
+            // Pobranie wybranego portu na podstawie poziomu bezpieczeństwa
+            const port = document.querySelector('input[name="securityLevel"]:checked').value;
+
+            // Konstrukcja URL do API OSRM z odpowiednim portem
+            const url = `http://127.0.0.1:${port}/route/v1/driving/${coordsString}?overview=full&geometries=polyline`;
+
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Błąd sieci: " + response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("Odpowiedź z API OSRM:", data);
+
+                    // Dekodowanie geometrii trasy
+                    const routeGeometry = polyline.decode(data.routes[0].geometry);
+
+                    // Narysowanie polilinii na mapie
+                    routePolyline = L.polyline(routeGeometry, { color: 'blue' }).addTo(map);
+
+                    // Dopasowanie widoku mapy do trasy
+                    map.fitBounds(routePolyline.getBounds());
+                })
+                .catch(error => {
+                    console.error("Wystąpił problem z pobieraniem trasy:", error);
+                });
+        }
+    </script>
+</body>
+</html>
