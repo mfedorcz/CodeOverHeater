@@ -1,0 +1,16 @@
+# Use the official OSRM backend image as the base
+FROM osrm/osrm-backend
+
+# Set the working directory inside the container
+WORKDIR /data
+
+# Copy your local OSRM data into the container's /data directory
+# Assuming the .osrm files are stored in the 'osrm-data' directory
+# COPY ./osrm-data /data
+COPY ./profiles/bicycle-easy.lua /opt/
+# COPY ./osm-files/osm-data.osm /data/
+# Expose the OSRM routing engine port (5000)
+EXPOSE 5000
+
+# Command to run the OSRM routing engine using the .osrm file
+# CMD ["osrm-routed", "/data/berlin-latest.osrm"]
