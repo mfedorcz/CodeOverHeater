@@ -174,3 +174,53 @@ paths:
                   detail:
                     type: string
                     example: "Invalid profile. Allowed profiles: bike, safe-bike, strict-bike, bike50"
+  /route/gpx:
+    get:
+      summary: Get route information in GPX format
+      parameters:
+        - name: start_latitude
+          in: query
+          required: true
+          schema:
+            type: number
+        - name: start_longitude
+          in: query
+          required: true
+          schema:
+            type: number
+        - name: end_latitude
+          in: query
+          required: true
+          schema:
+            type: number
+        - name: end_longitude
+          in: query
+          required: true
+          schema:
+            type: number
+        - name: profile
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [bike, safe-bike, strict-bike, bike50]
+      responses:
+        '200':
+          description: Successful route calculation (GPX format)
+          content:
+            application/xml:
+              schema:
+                type: string
+                example: |
+                  <?xml version="1.0" encoding="UTF-8"?>
+                  <gpx version="1.1" creator="SimpleRouteAPI">
+                    <trk>
+                      <name>Example GPX Route</name>
+                      <trkseg>
+                        <trkpt lat="52.516544" lon="13.376867"></trkpt>
+                        <trkpt lat="52.51399" lon="13.382093"></trkpt>
+                      </trkseg>
+                    </trk>
+                  </gpx>
+        '400':
+          description: Bad request
