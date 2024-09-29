@@ -1,0 +1,297 @@
+{
+    "routes": [
+        {
+            "legs": [
+                {
+                    "steps": [
+                        {
+                            "intersections": [
+                                {
+                                    "out": 0,
+                                    "entry": [
+                                        true
+                                    ],
+                                    "bearings": [
+                                        215
+                                    ],
+                                    "location": [
+                                        13.376867,
+                                        52.516544
+                                    ]
+                                },
+                                {
+                                    "lanes": [
+                                        {
+                                            "valid": true,
+                                            "indications": [
+                                                "straight"
+                                            ]
+                                        },
+                                        {
+                                            "valid": false,
+                                            "indications": [
+                                                "right"
+                                            ]
+                                        }
+                                    ],
+                                    "out": 2,
+                                    "location": [
+                                        13.376706,
+                                        52.516265
+                                    ],
+                                    "bearings": [
+                                        30,
+                                        90,
+                                        180,
+                                        270
+                                    ],
+                                    "entry": [
+                                        false,
+                                        false,
+                                        true,
+                                        true
+                                    ],
+                                    "in": 0
+                                },
+                                {
+                                    "out": 2,
+                                    "location": [
+                                        13.376726,
+                                        52.516156
+                                    ],
+                                    "bearings": [
+                                        0,
+                                        90,
+                                        165,
+                                        270
+                                    ],
+                                    "entry": [
+                                        false,
+                                        true,
+                                        true,
+                                        false
+                                    ],
+                                    "in": 0
+                                }
+                            ],
+                            "driving_side": "right",
+                            "geometry": "kcp_IktspAHJFFFBB@H@B@H?J?HCLC@AHGDGBADIDMDSJ_@HQDIFGDEFAHAHAN@L?dCRX@",
+                            "mode": "driving",
+                            "duration": 31.6,
+                            "maneuver": {
+                                "bearing_after": 215,
+                                "location": [
+                                    13.376867,
+                                    52.516544
+                                ],
+                                "bearing_before": 0,
+                                "type": "depart"
+                            },
+                            "ref": "B 2",
+                            "weight": 31.6,
+                            "distance": 241.8,
+                            "name": "Ebertstraße"
+                        },
+                        {
+                            "intersections": [
+                                {
+                                    "lanes": [
+                                        {
+                                            "valid": false,
+                                            "indications": [
+                                                "left"
+                                            ]
+                                        },
+                                        {
+                                            "valid": true,
+                                            "indications": [
+                                                "left"
+                                            ]
+                                        },
+                                        {
+                                            "valid": false,
+                                            "indications": [
+                                                "straight"
+                                            ]
+                                        }
+                                    ],
+                                    "out": 1,
+                                    "location": [
+                                        13.377353,
+                                        52.51459
+                                    ],
+                                    "bearings": [
+                                        0,
+                                        90,
+                                        180
+                                    ],
+                                    "entry": [
+                                        false,
+                                        true,
+                                        true
+                                    ],
+                                    "in": 0
+                                },
+                                {
+                                    "out": 1,
+                                    "location": [
+                                        13.377467,
+                                        52.514585
+                                    ],
+                                    "bearings": [
+                                        0,
+                                        90,
+                                        180,
+                                        270
+                                    ],
+                                    "entry": [
+                                        true,
+                                        true,
+                                        false,
+                                        false
+                                    ],
+                                    "in": 3
+                                }
+                            ],
+                            "driving_side": "right",
+                            "geometry": "ewo_ImwspA?W@M?SAMOsFCm@K{@CUE[AMAKKy@CUAGE_@]{CAE?GAEEa@",
+                            "mode": "driving",
+                            "duration": 47,
+                            "maneuver": {
+                                "bearing_after": 92,
+                                "type": "turn",
+                                "modifier": "left",
+                                "bearing_before": 184,
+                                "location": [
+                                    13.377353,
+                                    52.51459
+                                ]
+                            },
+                            "ref": "B 5",
+                            "weight": 47,
+                            "distance": 288.3,
+                            "name": "Behrenstraße"
+                        },
+                        {
+                            "intersections": [
+                                {
+                                    "lanes": [
+                                        {
+                                            "valid": false,
+                                            "indications": [
+                                                "straight"
+                                            ]
+                                        },
+                                        {
+                                            "valid": true,
+                                            "indications": [
+                                                "straight",
+                                                "right"
+                                            ]
+                                        }
+                                    ],
+                                    "out": 1,
+                                    "location": [
+                                        13.381488,
+                                        52.515141
+                                    ],
+                                    "bearings": [
+                                        75,
+                                        165,
+                                        255,
+                                        345
+                                    ],
+                                    "entry": [
+                                        true,
+                                        true,
+                                        false,
+                                        false
+                                    ],
+                                    "in": 2
+                                }
+                            ],
+                            "driving_side": "right",
+                            "geometry": "szo_IiqtpARIFC@Ad@SPGn@YfAe@DCBALE",
+                            "mode": "driving",
+                            "duration": 16.3,
+                            "maneuver": {
+                                "bearing_after": 161,
+                                "type": "turn",
+                                "modifier": "right",
+                                "bearing_before": 71,
+                                "location": [
+                                    13.381488,
+                                    52.515141
+                                ]
+                            },
+                            "weight": 16.3,
+                            "distance": 134.4,
+                            "name": "Wilhelmstraße"
+                        },
+                        {
+                            "intersections": [
+                                {
+                                    "in": 0,
+                                    "entry": [
+                                        true
+                                    ],
+                                    "bearings": [
+                                        342
+                                    ],
+                                    "location": [
+                                        13.382093,
+                                        52.51399
+                                    ]
+                                }
+                            ],
+                            "driving_side": "right",
+                            "geometry": "mso_IautpA",
+                            "mode": "driving",
+                            "duration": 0,
+                            "maneuver": {
+                                "bearing_after": 0,
+                                "location": [
+                                    13.382093,
+                                    52.51399
+                                ],
+                                "bearing_before": 162,
+                                "type": "arrive"
+                            },
+                            "weight": 0,
+                            "distance": 0,
+                            "name": "Wilhelmstraße"
+                        }
+                    ],
+                    "distance": 664.5,
+                    "duration": 94.9,
+                    "summary": "Ebertstraße, Behrenstraße",
+                    "weight": 94.9
+                }
+            ],
+            "distance": 664.5,
+            "duration": 94.9,
+            "weight_name": "routability",
+            "weight": 94.9
+        }
+    ],
+    "waypoints": [
+        {
+            "hint": "i9QBgP___38FAAAABgAAAIIAAAAyAAAAjKuvQPOqZz-bvA5DBBcDQgUAAAAGAAAAggAAADIAAACXAQAAYx3MAMBWIQNfHcwAwlYhAw4ADw6S6ym9",
+            "distance": 0.351058,
+            "name": "Ebertstraße",
+            "location": [
+                13.376867,
+                52.516544
+            ]
+        },
+        {
+            "hint": "3QwAgJqyAYACAAAACAAAAAAAAABAAAAAMMk6QAYC90AAAAAAFZ5AQgIAAAAIAAAAAAAAAEAAAACXAQAAzTHMAMZMIQO9McwAw0whAwAAbxWS6ym9",
+            "distance": 1.136137,
+            "name": "Wilhelmstraße",
+            "location": [
+                13.382093,
+                52.51399
+            ]
+        }
+    ]
+}
