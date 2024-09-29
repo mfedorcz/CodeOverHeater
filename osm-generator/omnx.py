@@ -8,6 +8,7 @@ class OSMGenerator:
     def __init__(self, start_loc_name, end_loc_name):
         self.start_loc_name = start_loc_name
         self.end_loc_name = end_loc_name
+        self.G = None
         self.get_OSM_data()
 
     def get_OSM_data(self):
@@ -35,6 +36,12 @@ class OSMGenerator:
     def edge_add_atrr(self, edge, attr_name, attr_value, key=0):
         self.G.edges[edge[0], edge[1], key][attr_name] = attr_value
         return 0
+
+    def nearest_edges(self, point_X, point_Y):
+        return ox.distance.nearest_edges(self.G, point_X, point_Y)
+    
+    def get_edge_data(self, u, v):
+        return self.G.get_edge_data(u, v)
 
 
 if __name__ == "__main__":
