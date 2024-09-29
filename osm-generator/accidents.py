@@ -57,7 +57,7 @@ def get_accidents(start_loc_name, end_loc_name):
         with open('osm-generator/maps/accidents.json', 'w') as json_file:
             json.dump(accidents, json_file, indent=4)
         
-        print('Dane zostały zapisane do pliku response_data.json')
+        print('Dane zostały zapisane do pliku accidents.json')
     else:
         print(f'Błąd: {response.status_code}')
         print('Treść odpowiedzi:', response.text)

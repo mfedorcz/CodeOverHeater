@@ -3,10 +3,12 @@ from accidents import get_accidents
 import json
 from add_accidents_volume import main as add_accident_tag
 from add_traffic_volume import main as add_traffic_volume_tag
+from get_traffic_volume import main as get_traffic_volume
 
 JSON_FILE_PATH = 'osm-generator/maps/accidents.json'
 START_LOC_NAME = 'Skała, Poland'
-END_LOC_NAME = 'Krzeszowice, Poland'
+END_LOC_NAME = 'Kraków, Poland'
+# END_LOC_NAME = 'Krzeszowice, Poland'
 # START_LOC_NAME = 'Centralna 38, Wielka wieś, Poland'
 # END_LOC_NAME = 'Szyce 101, Poland'
 
@@ -18,6 +20,7 @@ def load_json_file(file_path):
 
 # Getting accidents data
 get_accidents(START_LOC_NAME, END_LOC_NAME)
+get_traffic_volume(START_LOC_NAME, END_LOC_NAME)
 accidents_data = load_json_file(JSON_FILE_PATH)
 
 # Creating OSMGenerator object (graph)
